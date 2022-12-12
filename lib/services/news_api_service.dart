@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:news_app/features/articles/data/models/articel_mode.dart';
+import 'package:news_app/features/articles/data/models/articel_model.dart';
 
 class NewsApiService {
   final _baseUrl = "https://newsapi.org/v2/";

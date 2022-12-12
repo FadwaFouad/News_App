@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:news_app/features/articles/view/pages/article_page.dart';
-import 'package:news_app/features/search/view/pages/search_page.dart';
+import 'package:news_app/features/favorites/view/pages/fav_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -21,7 +21,7 @@ class _HomePageState extends State<HomePage> {
         actions: [
           IconButton(
             onPressed: () {},
-            icon: const FaIcon(FontAwesomeIcons.ellipsisVertical),
+            icon: const FaIcon(FontAwesomeIcons.searchengin),
           )
         ],
       ),
@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
         index: _currentIndex,
         children: [
           ArticlePage(),
-          SearchPage(),
+          FavPage(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -43,8 +43,8 @@ class _HomePageState extends State<HomePage> {
               label: "Home",
             ),
             BottomNavigationBarItem(
-              icon: const FaIcon(FontAwesomeIcons.searchengin),
-              label: "Search",
+              icon: const FaIcon(FontAwesomeIcons.heart),
+              label: "Favorites",
             ),
           ]),
     );
