@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:news_app/features/articles/delegate/article_search_delegate.dart';
 import 'package:news_app/features/articles/view/pages/article_page.dart';
 import 'package:news_app/features/favorites/view/pages/fav_page.dart';
 
@@ -20,7 +21,9 @@ class _HomePageState extends State<HomePage> {
         title: const Text("News App"),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              showSearch(context: context, delegate: ArticleSearchDelegates());
+            },
             icon: const FaIcon(FontAwesomeIcons.searchengin),
           )
         ],
