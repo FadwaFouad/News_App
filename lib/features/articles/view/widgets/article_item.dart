@@ -1,5 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:news_app/features/articles/view/pages/article_details.dart';
 
 import '../../data/models/articel_model.dart';
 
@@ -10,23 +13,46 @@ class ArticleItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // foramt the date of article
-    var dateFormat =
+    // foramt  date of article
+    var dateParse =
         DateFormat("yyyy-MM-ddTHH:mm:ssZ").parse(article.publishedAt);
-    var articledDate = "${dateFormat.hour} : ${dateFormat.minute}";
-    return Container(
-      child: Column(
-        children: [
-          Image.network(
-            article.urlToImage,
-            errorBuilder: (context, error, stackTrace) {
-              return Text("No image");
-            },
-          ),
-          Text(article.title),
-          Text(article.author),
-          Text(articledDate)
-        ],
+    var articleDateFormat = DateFormat("yyyy-MM-dd HH:mm").format(dateParse);
+
+    return InkWell(
+      onTap: () {
+        Navigator.push(context, MaterialPageRoute(builder: (ctx) {
+          return ArticleDetails(article: article);
+        }));
+      },
+      child: Container(
+        padding: const EdgeInsets.fromLTRB(10, 15, 10, 15),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            CachedNetworkImage(
+              imageUrl: article.urlToImage,
+              errorWidget: (context, url, error) {
+                return Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 150,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      FaIcon(FontAwesomeIcons.chainBroken),
+                      Text("Could not load this image")
+                    ],
+                  ),
+                );
+              },
+            ),
+            Text(
+              article.title,
+              style: Theme.of(context).textTheme.headlineSmall,
+            ),
+            Text(article.author),
+            Text(articleDateFormat)
+          ],
+        ),
       ),
     );
   }
