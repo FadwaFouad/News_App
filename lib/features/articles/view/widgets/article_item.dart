@@ -29,28 +29,50 @@ class ArticleItem extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CachedNetworkImage(
-              imageUrl: article.urlToImage,
-              errorWidget: (context, url, error) {
-                return Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: 150,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      FaIcon(FontAwesomeIcons.chainBroken),
-                      Text("Could not load this image")
-                    ],
-                  ),
-                );
-              },
+            ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: CachedNetworkImage(
+                fit: BoxFit.cover,
+                height: 200,
+                width: MediaQuery.of(context).size.width,
+                imageUrl: article.urlToImage,
+                errorWidget: (context, url, error) {
+                  return Container(
+                    decoration: BoxDecoration(
+                        border: Border.all(width: 1, color: Colors.grey)),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        FaIcon(
+                          FontAwesomeIcons.chainBroken,
+                          color: Colors.grey,
+                        ),
+                        Text(
+                          "Could not load this image",
+                          style: TextStyle(color: Colors.grey),
+                        )
+                      ],
+                    ),
+                  );
+                },
+              ),
             ),
             Text(
               article.title,
-              style: Theme.of(context).textTheme.headlineSmall,
+              style: TextStyle(fontSize: 19, fontWeight: FontWeight.w600),
             ),
-            Text(article.author),
-            Text(articleDateFormat)
+            Text(
+              article.author,
+              style: TextStyle(
+                color: Colors.grey,
+              ),
+            ),
+            Text(
+              articleDateFormat,
+              style: TextStyle(
+                color: Color.fromARGB(255, 177, 72, 72),
+              ),
+            )
           ],
         ),
       ),

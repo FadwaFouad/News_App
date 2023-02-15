@@ -22,14 +22,17 @@ class _ArticleDetailsState extends State<ArticleDetails> {
     var articleContent = content.replaceAll(contentSplit.last, "");
 
     return Scaffold(
-      appBar: AppBar(actions: [
-        IconButton(
-          onPressed: () async {
-            await Share.share("hi, check this news ${widget.article.url}");
-          },
-          icon: const FaIcon(FontAwesomeIcons.share),
-        ),
-      ]),
+      appBar: AppBar(
+          title: const Text("Details"),
+          backgroundColor: Colors.red.shade900,
+          actions: [
+            IconButton(
+              onPressed: () async {
+                await Share.share("hi, check this news ${widget.article.url}");
+              },
+              icon: const FaIcon(FontAwesomeIcons.share),
+            ),
+          ]),
       body: ListView(
         children: [
           ArticleItem(
@@ -38,20 +41,33 @@ class _ArticleDetailsState extends State<ArticleDetails> {
           Divider(),
           Padding(
             padding: const EdgeInsets.fromLTRB(10, 15, 10, 15),
-            child: Text(widget.article.description),
+            child: Text(
+              widget.article.description,
+              style: TextStyle(
+                  fontFamily: 'Roboto',
+                  color: Colors.black54,
+                  fontWeight: FontWeight.w500),
+            ),
           ),
           Divider(),
           Padding(
             padding: const EdgeInsets.fromLTRB(10, 15, 10, 15),
-            child: Text(articleContent),
+            child: Text(
+              articleContent,
+              style: TextStyle(
+                  fontFamily: 'Roboto',
+                  color: Colors.black54,
+                  fontWeight: FontWeight.w500),
+            ),
           ),
           MaterialButton(
             onPressed: () => readMore(widget.article.url),
-            color: Colors.green,
-            padding: EdgeInsets.all(5),
+            color: Color.fromARGB(255, 177, 72, 72),
+
+            padding: const EdgeInsets.all(5),
             elevation: 15,
             // height: 60,
-            child: Text("Read More"),
+            child: const Text("Read More >>"),
           ),
         ],
       ),

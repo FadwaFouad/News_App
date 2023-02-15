@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:http/http.dart';
 import 'package:news_app/features/articles/data/models/articel_model.dart';
 import 'package:news_app/features/articles/view/bloc/article_bloc.dart';
 import 'package:news_app/features/articles/view/bloc/article_event.dart';
@@ -29,16 +28,22 @@ class _ArticlePageState extends State<ArticlePage> {
         ? Center(
             child: CircularProgressIndicator(),
           )
-        : ListView.builder(
-            itemCount: articlesList.length,
-            itemBuilder: (context, index) {
-              return Column(
-                children: [
-                  ArticleItem(article: articlesList[index]),
-                  Divider(),
-                ],
-              );
+        : RefreshIndicator(
+            onRefresh: () async {
+              context.read<ArticleBloc>().add(onArticleLoad());
+              setState(() {});
             },
+            child: ListView.builder(
+              itemCount: articlesList.length,
+              itemBuilder: (context, index) {
+                return Column(
+                  children: [
+                    ArticleItem(article: articlesList[index]),
+                    Divider(),
+                  ],
+                );
+              },
+            ),
           );
   }
 }

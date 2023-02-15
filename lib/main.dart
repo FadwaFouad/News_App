@@ -17,9 +17,10 @@ class MyApp extends StatelessWidget {
         return ArticleBloc();
       },
       child: MaterialApp(
-        title: 'Flutter Demo',
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          fontFamily: 'Oswald',
+          primarySwatch: Colors.red,
         ),
         home: const HomePage(),
       ),
